@@ -4,9 +4,13 @@ using Random = System.Random;
 
 public class LockComponent : MonoBehaviour
 {
-    [SerializeField] private Text _firstPinText;
-    [SerializeField] private Text _secondPinText;
-    [SerializeField] private Text _thirdPinText;
+    //[SerializeField] private Text _firstPinText;
+    //[SerializeField] private Text _secondPinText;
+    //[SerializeField] private Text _thirdPinText;
+
+    [SerializeField] private PinPanelComponent _firstPinPanel;
+    [SerializeField] private PinPanelComponent _secondPinPanel;
+    [SerializeField] private PinPanelComponent _thirdPinPanel;
 
     [SerializeField] private TimerComponent _timer;
     [SerializeField] private GameObject _winCanvas;
@@ -65,10 +69,22 @@ public class LockComponent : MonoBehaviour
 
     private void UpdatePins(Lock lockObject)
     {
-        UpdatePinBlock(_firstPinText, lockObject.FirstPinCurrentValue);
-        UpdatePinBlock(_secondPinText, lockObject.SecondPinCurrentValue);
-        UpdatePinBlock(_thirdPinText, lockObject.ThirdPinCurrentValue);
+        UpdatePinPanel(_firstPinPanel, lockObject.FirstPinCurrentValue);
+        UpdatePinPanel(_secondPinPanel, lockObject.SecondPinCurrentValue);
+        UpdatePinPanel(_thirdPinPanel, lockObject.ThirdPinCurrentValue);
     }
+
+    private void UpdatePinPanel(PinPanelComponent pinPanel, int pinValue)
+    {
+        pinPanel.UpdatePanel(pinValue);
+    }
+
+    //private void UpdatePins(Lock lockObject)
+    //{
+    //    UpdatePinBlock(_firstPinText, lockObject.FirstPinCurrentValue);
+    //    UpdatePinBlock(_secondPinText, lockObject.SecondPinCurrentValue);
+    //    UpdatePinBlock(_thirdPinText, lockObject.ThirdPinCurrentValue);
+    //}
 
     private void UpdatePinBlock(Text text, int currentValue)
     {
