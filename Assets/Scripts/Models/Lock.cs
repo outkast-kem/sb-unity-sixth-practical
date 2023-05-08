@@ -1,3 +1,4 @@
+using System;
 /// <summary>
 /// Модель замка
 /// </summary>
@@ -15,6 +16,12 @@ public class Lock
     /// <summary>Текущее значение третьего пина</summary>
     public int ThirdPinCurrentValue { get; private set; }
 
+    /// <summary> Максимальное значение пина </summary>
+    private int _maxPinValue = 10;
+
+    /// <summary> Минимальное значение пина </summary>
+    private int _minPinValue = 0;
+
     public Lock(int unlockValue)
     {
         UnlockValue = unlockValue;
@@ -25,9 +32,9 @@ public class Lock
     /// </summary>
     public void SetupPins(int first, int second, int third)
     {
-        FirstPinCurrentValue = first;
-        SecondPinCurrentValue = second;
-        ThirdPinCurrentValue = third;
+        FirstPinCurrentValue = ValidatePinValue(first);
+        SecondPinCurrentValue = ValidatePinValue(second);
+        ThirdPinCurrentValue = ValidatePinValue(third);
     }
 
     /// <summary>
@@ -38,9 +45,13 @@ public class Lock
     /// <param name="third"></param>
     public void ApplyPinsChanges(int first, int second, int third)
     {
-        FirstPinCurrentValue += first;
-        SecondPinCurrentValue += second;
-        ThirdPinCurrentValue += third;
+        var newFirstPinValue = ValidatePinValue(FirstPinCurrentValue + first);
+        var newSecondPinValue = ValidatePinValue(SecondPinCurrentValue + second);
+        var newThirdPinValue = ValidatePinValue(ThirdPinCurrentValue + third);
+
+        FirstPinCurrentValue = newFirstPinValue;
+        SecondPinCurrentValue = newSecondPinValue;
+        ThirdPinCurrentValue = newThirdPinValue;
     }
 
     /// <summary>
@@ -49,4 +60,15 @@ public class Lock
     public bool IsOpen() => FirstPinCurrentValue == UnlockValue
         && SecondPinCurrentValue == UnlockValue
         && ThirdPinCurrentValue == UnlockValue;
+
+    private int ValidatePinValue(int pinValue)
+    {
+        if (pinValue > _maxPinValue)
+            return _maxPinValue;
+
+        if (pinValue < _minPinValue)
+            return _minPinValue;
+
+        return pinValue;
+    }
 }
