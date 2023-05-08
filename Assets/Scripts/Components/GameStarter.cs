@@ -12,14 +12,15 @@ public class GameStarter : MonoBehaviour
 
     private void Start()
     {
-        startGameCanvas.gameObject.SetActive(true);
-        gameCanvas.gameObject.SetActive(false);
-        winCanvas.gameObject.SetActive(false);
-        loseCanvas.gameObject.SetActive(false);
+        //startGameCanvas.gameObject.SetActive(true);
+        //gameCanvas.gameObject.SetActive(false);
+        //winCanvas.gameObject.SetActive(false);
+        //loseCanvas.gameObject.SetActive(false);
     }
 
     public void StartGame()
     {
+        gameCanvas.gameObject.SetActive(true);
         OnGameStarted?.Invoke();
     }
 }

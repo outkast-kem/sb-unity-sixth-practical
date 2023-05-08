@@ -1,29 +1,30 @@
+using System;
 using UnityEngine;
 
-public class Step1HandlerComponent :  MonoBehaviour, IStepHandler
+/// <summary>
+/// Обработчик первого шага меню
+/// </summary>
+public class Step1HandlerComponent : BaseStepHandler
 {
     [SerializeField] private GameObject _panel;
-    [SerializeField] private MenuStepStateMachine MenuStepStateMachine;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        if (_panel == null) throw new ArgumentNullException(nameof(_panel));
     }
 
-    public void Next()
-    {
-        Disactive();
-        var nextHandler = MenuStepStateMachine.Next();
-        nextHandler.Active();
-    }
-
-    public void Active()
+    /// <summary>
+    /// Активация шага меню
+    /// </summary>
+    public override void Active()
     {
         _panel.SetActive(true);
     }
 
-    public void Disactive()
+    /// <summary>
+    /// Деактивация шага меню
+    /// </summary>
+    public override void Disactive()
     {
         _panel.SetActive(false);
     }

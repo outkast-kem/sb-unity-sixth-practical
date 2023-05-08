@@ -1,29 +1,31 @@
+using System;
 using UnityEngine;
 
-public class Step2HandlerComponent : MonoBehaviour, IStepHandler
+/// <summary>
+/// Обработчик второго шага меню
+/// </summary>
+public class Step2HandlerComponent : BaseStepHandler
 {
     [SerializeField] private GameObject _panel;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        if (_panel == null) throw new ArgumentNullException(nameof(_panel));
     }
 
-    public void Active()
+    /// <summary>
+    /// Активация шага меню
+    /// </summary>
+    public override void Active()
     {
         _panel.SetActive(true);
     }
 
-    public void Disactive()
+    /// <summary>
+    /// Деактивация шага меню
+    /// </summary>
+    public override void Disactive()
     {
         _panel.SetActive(false);
     }
-}
-
-public interface IStepHandler
-{
-    void Active();
-
-    void Disactive();
 }

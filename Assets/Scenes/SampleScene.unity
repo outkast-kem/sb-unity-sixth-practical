@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 13404656}
   - component: {fileID: 13404655}
   m_Layer: 0
-  m_Name: StartGameCanvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1443,9 +1443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835725386ad15044bb0a20acf930e843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _steps:
-  - {fileID: 6413207469491365283}
-  - {fileID: 1081746598}
+  _firstStep: {fileID: 6413207469491365284}
+  _secondStep: {fileID: 1081746599}
+  _menuCanvas: {fileID: 13404654}
+  _gameStarter: {fileID: 806229514}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1801,7 +1802,7 @@ PrefabInstance:
     - target: {fileID: 4301496941118531075, guid: 58b3033ac83192749a2b8aa9ad84c6fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1081746599}
     - target: {fileID: 4301496941118531075, guid: 58b3033ac83192749a2b8aa9ad84c6fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1812,7 +1813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4301496941118531075, guid: 58b3033ac83192749a2b8aa9ad84c6fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuStepHandler, Assembly-CSharp
+      value: BaseStepHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4301496941118531075, guid: 58b3033ac83192749a2b8aa9ad84c6fd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1936,6 +1937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c312bfc24a3824fbf3a08270871839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuStepStateMachine: {fileID: 894419055}
   _panel: {fileID: 1082808243}
 --- !u!1 &1082808243 stripped
 GameObject:
@@ -3555,5 +3557,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a353cadd9a74ea4ab38e67a81a1e4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuStepStateMachine: {fileID: 894419055}
   _panel: {fileID: 276599133}
-  MenuStepStateMachine: {fileID: 894419055}
