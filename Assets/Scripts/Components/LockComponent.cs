@@ -23,9 +23,9 @@ public class LockComponent : MonoBehaviour
 
     private void GameStarter_OnGameStarted()
     {
-        var firstPinDefaultValue = 4; // GetRandomValue();
-        var secondPinDefaultValue = 7; // GetRandomValue();
-        var thirdPinDefaultValue = 5; // GetRandomValue();
+        var firstPinDefaultValue = 4;
+        var secondPinDefaultValue = 7;
+        var thirdPinDefaultValue = 5;
 
         _lock.SetupPins(firstPinDefaultValue, secondPinDefaultValue, thirdPinDefaultValue);
 
