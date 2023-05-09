@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -18,7 +19,7 @@ public class MenuStepStateMachine : MonoBehaviour
     /// </summary>
     private Dictionary<BaseStepHandler, BaseStepHandler> _stateMachine;
 
-    void Start()
+    void Awake()
     {
         if (_firstStep == null) throw new ArgumentNullException(nameof(_firstStep));
         if (_secondStep == null) throw new ArgumentNullException(nameof(_secondStep));
@@ -35,6 +36,14 @@ public class MenuStepStateMachine : MonoBehaviour
     public BaseStepHandler Next(BaseStepHandler from)
     {
         return _stateMachine[from];
+    }
+
+    /// <summary>
+    /// ¬озвращает первый шаг в машине состо€ний
+    /// </summary>
+    public BaseStepHandler GetFirst()
+    {
+        return _stateMachine.Keys.Single(x => !_stateMachine.Values.Contains(x));
     }
 
     /// <summary>
@@ -60,6 +69,4 @@ public class MenuStepStateMachine : MonoBehaviour
             [_secondStep] = null
         };
     }
-
-
 }

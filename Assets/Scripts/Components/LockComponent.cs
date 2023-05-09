@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
 
 public class LockComponent : MonoBehaviour
 {
@@ -24,8 +23,6 @@ public class LockComponent : MonoBehaviour
 
     private void GameStarter_OnGameStarted()
     {
-        var rnd = new Random();
-
         var firstPinDefaultValue = 4; // GetRandomValue();
         var secondPinDefaultValue = 7; // GetRandomValue();
         var thirdPinDefaultValue = 5; // GetRandomValue();
@@ -33,8 +30,6 @@ public class LockComponent : MonoBehaviour
         _lock.SetupPins(firstPinDefaultValue, secondPinDefaultValue, thirdPinDefaultValue);
 
         UpdatePins(_lock);
-
-        int GetRandomValue() => rnd.Next(0, 10);
     }
 
     private void OnEnable()
