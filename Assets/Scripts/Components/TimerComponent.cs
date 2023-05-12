@@ -12,11 +12,6 @@ public class TimerComponent : MonoBehaviour
     private bool isTimerEnabled;
     private float timerValue;
 
-    private void Awake()
-    {
-        _gameStarter.OnGameStarted += GameStarter_OnGameStarted;
-    }
-
     private void GameStarter_OnGameStarted()
     {
         Reset();
@@ -35,7 +30,8 @@ public class TimerComponent : MonoBehaviour
         if (roundedTime <= 0)
         {
             isTimerEnabled = false;
-            losePanel.SetActive(true);
+            _gameStarter.FinishGame(false);
+            //losePanel.SetActive(true);
             return;
         }
     }
