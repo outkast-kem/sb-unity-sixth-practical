@@ -2,9 +2,12 @@ using Assets.Scripts.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Компонент таймера до окончания игры
+/// </summary>
 public class TimerComponent : MonoBehaviour
 { 
-    [SerializeField] private int playTime = 60;
+    [SerializeField] private int playTime;
     [SerializeField] private Text timerText;
 
     [SerializeField] private GameStateManagerComponent _gameStarter;
@@ -12,6 +15,9 @@ public class TimerComponent : MonoBehaviour
     private bool isTimerEnabled;
     private float timerValue;
 
+    /// <summary>
+    /// Обработчик события начала игры
+    /// </summary>
     private void GameStarter_OnGameStarted()
     {
         Reset();
@@ -35,6 +41,17 @@ public class TimerComponent : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Остановка таймера
+    /// </summary>
+    public void DisableTimer()
+    {
+        isTimerEnabled = false;
+    }
+
+    /// <summary>
+    /// Сброс таймера
+    /// </summary>
     private void Reset()
     {
         timerValue = playTime;
@@ -53,10 +70,5 @@ public class TimerComponent : MonoBehaviour
     {
         Debug.Log("Timer is disabled");
         _gameStarter.OnGameStarted -= GameStarter_OnGameStarted;
-    }
-
-    public void DisableTimer()
-    {
-        isTimerEnabled = false;
     }
 }

@@ -1,12 +1,15 @@
 using UnityEngine;
 
+/// <summary>
+/// Стартовый компонент меню
+/// </summary>
 public class MenuStarterComponent : MonoBehaviour
 {
-    [SerializeField] MenuStepStateMachine _menuStepStateMachine;
+    [SerializeField] MenuStepStateMachine menuStepStateMachine;
 
     void Start()
     {
-        var firstStep = _menuStepStateMachine.GetFirst();
+        var firstStep = menuStepStateMachine.GetFirst();
         firstStep.Active();
     }
 }

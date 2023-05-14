@@ -6,12 +6,7 @@ using UnityEngine;
 /// </summary>
 public abstract class BaseStepHandler : MonoBehaviour
 {
-    [SerializeField] private MenuStepStateMachine _menuStepStateMachine;
-
-    private void Start()
-    {
-        if (_menuStepStateMachine == null) throw new ArgumentNullException(nameof(_menuStepStateMachine));
-    }
+    [SerializeField] private MenuStepStateMachine menuStepStateMachine;
 
     /// <summary>
     /// Активация шага
@@ -28,12 +23,12 @@ public abstract class BaseStepHandler : MonoBehaviour
     /// </summary>
     public void Next()
     {
-        var nextHandler = _menuStepStateMachine.Next(this);
+        var nextHandler = menuStepStateMachine.Next(this);
         Disactive();
 
         if (nextHandler != null)
             nextHandler.Active();
         else
-            _menuStepStateMachine.Finish();
+            menuStepStateMachine.Finish();
     }
 }

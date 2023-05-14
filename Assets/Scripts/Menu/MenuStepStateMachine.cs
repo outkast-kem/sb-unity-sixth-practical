@@ -8,11 +8,11 @@ using UnityEngine;
 /// </summary>
 public class MenuStepStateMachine : MonoBehaviour
 {
-    [SerializeField] private BaseStepHandler _firstStep;
-    [SerializeField] private BaseStepHandler _secondStep;
+    [SerializeField] private BaseStepHandler firstStep;
+    [SerializeField] private BaseStepHandler secondStep;
 
-    [SerializeField] private GameObject _menuCanvas;
-    [SerializeField] private GameStateManagerComponent _gameStarter;
+    [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameStateManagerComponent gameStarter;
 
     /// <summary>
     /// Словарь, содержащий простые переходы между экранами
@@ -21,12 +21,6 @@ public class MenuStepStateMachine : MonoBehaviour
 
     void Awake()
     {
-        if (_firstStep == null) throw new ArgumentNullException(nameof(_firstStep));
-        if (_secondStep == null) throw new ArgumentNullException(nameof(_secondStep));
-
-        if (_menuCanvas == null) throw new ArgumentNullException(nameof(_menuCanvas));
-        if (_gameStarter == null) throw new ArgumentNullException(nameof(_gameStarter));
-
         Init();
     }
 
@@ -51,11 +45,9 @@ public class MenuStepStateMachine : MonoBehaviour
     /// </summary>
     public void Finish()
     {
-        Debug.Log("Finish state machine");
+        menuCanvas.SetActive(false);
 
-        _menuCanvas.SetActive(false);
-
-        _gameStarter.StartGame();
+        gameStarter.StartGame();
     }
 
     /// <summary>
@@ -65,8 +57,8 @@ public class MenuStepStateMachine : MonoBehaviour
     {
         _stateMachine = new Dictionary<BaseStepHandler, BaseStepHandler>
         {
-            [_firstStep] = _secondStep,
-            [_secondStep] = null
+            [firstStep] = secondStep,
+            [secondStep] = null
         };
     }
 }

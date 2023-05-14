@@ -12,6 +12,9 @@ public class Tool
     /// <summary> Значение, на которое меняется третий пин </summary>
     public int ThirdPinChangeValue { get; }
 
+    /// <summary>
+    /// Инструмент для изменения значений пинов
+    /// </summary>
     public Tool(int firstPinChangeValue, int secondPinChangeValue, int thirdPinChangeValue)
     {
         FirstPinChangeValue = firstPinChangeValue;

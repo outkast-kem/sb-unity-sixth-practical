@@ -8,8 +8,8 @@ using UnityEngine;
 public class GameStateManagerComponent : MonoBehaviour
 {
     [SerializeField] private Canvas gameCanvas;
-
-    public bool IsGameActive { get; private set; }
+    [SerializeField] private Canvas winCanvas;
+    [SerializeField] private Canvas loseCanvas;
 
     public delegate void GameFinishHandler(GameResults args);
 
@@ -32,5 +32,18 @@ public class GameStateManagerComponent : MonoBehaviour
     public void FinishGame(GameResults result)
     {
         OnGameFinished?.Invoke(result);
+    }
+
+    /// <summary>
+    /// јктивирует нужный canvas в зависимости от исхода игры
+    /// </summary>
+    public void GoToResultCanvas(GameResults gameResult)
+    {
+        if (gameResult == GameResults.Win)
+            winCanvas.gameObject.SetActive(true);
+        else
+            loseCanvas.gameObject.SetActive(true);
+
+        gameCanvas.gameObject.SetActive(false);
     }
 }

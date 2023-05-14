@@ -1,4 +1,3 @@
-using System;
 /// <summary>
 /// ћодель замка
 /// </summary>
@@ -17,11 +16,15 @@ public class Lock
     public int ThirdPinCurrentValue { get; private set; }
 
     /// <summary> ћаксимальное значение пина </summary>
-    private int _maxPinValue = 10;
+    private const int MaxPinValue = 10;
 
     /// <summary> ћинимальное значение пина </summary>
-    private int _minPinValue = 0;
+    private const int MinPinValue = 0;
 
+    /// <summary>
+    /// ћодель замка
+    /// </summary>
+    /// <param name="unlockValue">«начение, при котором замок считаетс€ открытым</param>
     public Lock(int unlockValue)
     {
         UnlockValue = unlockValue;
@@ -40,9 +43,6 @@ public class Lock
     /// <summary>
     /// ѕримен€ет к текущим значени€м пинов переданные значени€
     /// </summary>
-    /// <param name="first"></param>
-    /// <param name="second"></param>
-    /// <param name="third"></param>
     public void ApplyPinsChanges(int first, int second, int third)
     {
         var newFirstPinValue = ValidatePinValue(FirstPinCurrentValue + first);
@@ -57,17 +57,23 @@ public class Lock
     /// <summary>
     /// ¬озвращает признак того, открыт ли сундук или нет
     /// </summary>
-    public bool IsOpen() => FirstPinCurrentValue == UnlockValue
-        && SecondPinCurrentValue == UnlockValue
-        && ThirdPinCurrentValue == UnlockValue;
+    public bool IsOpen() => FirstPinCurrentValue == UnlockValue && 
+                            SecondPinCurrentValue == UnlockValue && 
+                            ThirdPinCurrentValue == UnlockValue;
 
+    /// <summary>
+    /// ћетод, провер€ющий значение пина
+    /// </summary>
     private int ValidatePinValue(int pinValue)
     {
-        if (pinValue > _maxPinValue)
-            return _maxPinValue;
+        // если полученное значение выше максимального или ниже минимального, то значению ставитс€ соответственно
+        // максимально или минимально возможное значение  
 
-        if (pinValue < _minPinValue)
-            return _minPinValue;
+        if (pinValue > MaxPinValue)
+            return MaxPinValue;
+
+        if (pinValue < MinPinValue)
+            return MinPinValue;
 
         return pinValue;
     }

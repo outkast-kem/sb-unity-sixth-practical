@@ -7,40 +7,46 @@ using UnityEngine.UI;
 /// </summary>
 public class LockComponent : MonoBehaviour
 {
-    [SerializeField] private Text _firstPinText;
-    [SerializeField] private Text _secondPinText;
-    [SerializeField] private Text _thirdPinText;
+    [SerializeField] private Text firstPinText;
+    [SerializeField] private Text secondPinText;
+    [SerializeField] private Text thirdPinText;
 
-    [SerializeField] private TimerComponent _timer;
+    [SerializeField] private TimerComponent timerComponent;
 
-    [SerializeField] private GameStateManagerComponent _gameStateManager;
+    [SerializeField] private GameStateManagerComponent gameStateManager;
 
-    [SerializeField] private int _unlockValue;
+    /// <summary>
+    /// Значение для открытия замка
+    /// </summary>
+    [SerializeField] private int unlockValue = 5;
 
     private Lock _lock;
 
     private void Awake()
     {
-        _lock = new Lock(_unlockValue);
+        _lock = new Lock(unlockValue);
     }
 
     private void OnEnable()
     {
         Debug.Log("Lock is enabled");
-        _gameStateManager.OnGameStarted += GameStateManager_OnGameStarted;
+        gameStateManager.OnGameStarted += GameStateManager_OnGameStarted;
     }
 
     private void OnDisable()
     {
         Debug.Log("Lock is disabled");
-        _gameStateManager.OnGameStarted -= GameStateManager_OnGameStarted;
+        gameStateManager.OnGameStarted -= GameStateManager_OnGameStarted;
     }
 
+    /// <summary>
+    /// Обработка события начала игры
+    /// </summary>
     private void GameStateManager_OnGameStarted()
     {
-        var firstPinDefaultValue = 4;
-        var secondPinDefaultValue = 7;
-        var thirdPinDefaultValue = 5;
+        var firstPinDefaultValue = 3;
+        var secondPinDefaultValue = 8;
+        var thirdPinDefaultValue = 6;
 
         _lock.SetupPins(firstPinDefaultValue, secondPinDefaultValue, thirdPinDefaultValue);
 
@@ -57,8 +63,8 @@ public class LockComponent : MonoBehaviour
 
         if (_lock.IsOpen())
         {
-            _timer.DisableTimer();
-            _gameStateManager.FinishGame(GameResults.Win);
+            timerComponent.DisableTimer();
+            gameStateManager.FinishGame(GameResults.Win);
         }
     }
 
@@ -67,9 +73,9 @@ public class LockComponent : MonoBehaviour
     /// </summary>
     private void UpdatePins(Lock lockObject)
     {
-        UpdatePinBlock(_firstPinText, lockObject.FirstPinCurrentValue);
-        UpdatePinBlock(_secondPinText, lockObject.SecondPinCurrentValue);
-        UpdatePinBlock(_thirdPinText, lockObject.ThirdPinCurrentValue);
+        UpdatePinBlock(firstPinText, lockObject.FirstPinCurrentValue);
+        UpdatePinBlock(secondPinText, lockObject.SecondPinCurrentValue);
+        UpdatePinBlock(thirdPinText, lockObject.ThirdPinCurrentValue);
     }
 
     private void UpdatePinBlock(Text text, int currentValue)
