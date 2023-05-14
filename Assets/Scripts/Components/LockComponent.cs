@@ -1,6 +1,10 @@
+using Assets.Scripts.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Компонент замка
+/// </summary>
 public class LockComponent : MonoBehaviour
 {
     [SerializeField] private Text _firstPinText;
@@ -8,9 +12,8 @@ public class LockComponent : MonoBehaviour
     [SerializeField] private Text _thirdPinText;
 
     [SerializeField] private TimerComponent _timer;
-    [SerializeField] private GameObject _winCanvas;
 
-    [SerializeField] private GameStarter _gameStarter;
+    [SerializeField] private GameStateManagerComponent _gameStateManager;
 
     [SerializeField] private int _unlockValue;
 
@@ -21,7 +24,19 @@ public class LockComponent : MonoBehaviour
         _lock = new Lock(_unlockValue);
     }
 
-    private void GameStarter_OnGameStarted()
+    private void OnEnable()
+    {
+        Debug.Log("Lock is enabled");
+        _gameStateManager.OnGameStarted += GameStateManager_OnGameStarted;
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Lock is disabled");
+        _gameStateManager.OnGameStarted -= GameStateManager_OnGameStarted;
+    }
+
+    private void GameStateManager_OnGameStarted()
     {
         var firstPinDefaultValue = 4;
         var secondPinDefaultValue = 7;
@@ -32,18 +47,9 @@ public class LockComponent : MonoBehaviour
         UpdatePins(_lock);
     }
 
-    private void OnEnable()
-    {
-        Debug.Log("Lock is enabled");
-        _gameStarter.OnGameStarted += GameStarter_OnGameStarted;
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("Lock is disabled");
-        _gameStarter.OnGameStarted -= GameStarter_OnGameStarted;
-    }
-
+    /// <summary>
+    /// Применяет значения пинов к замку
+    /// </summary>
     public void ChangePins(int firstPinChanges, int secondPinChanges, int thirdPinChanges)
     {
         _lock.ApplyPinsChanges(firstPinChanges, secondPinChanges, thirdPinChanges);
@@ -52,12 +58,13 @@ public class LockComponent : MonoBehaviour
         if (_lock.IsOpen())
         {
             _timer.DisableTimer();
-            _winCanvas.SetActive(true);
+            _gameStateManager.FinishGame(GameResults.Win);
         }
     }
 
-    public int GetUnlockValue() => _lock.UnlockValue;
-
+    /// <summary>
+    /// Обновляет текст пинов
+    /// </summary>
     private void UpdatePins(Lock lockObject)
     {
         UpdatePinBlock(_firstPinText, lockObject.FirstPinCurrentValue);

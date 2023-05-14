@@ -12,7 +12,7 @@ public class MenuStepStateMachine : MonoBehaviour
     [SerializeField] private BaseStepHandler _secondStep;
 
     [SerializeField] private GameObject _menuCanvas;
-    [SerializeField] private GameStarter _gameStarter;
+    [SerializeField] private GameStateManagerComponent _gameStarter;
 
     /// <summary>
     /// Словарь, содержащий простые переходы между экранами

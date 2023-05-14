@@ -1,13 +1,17 @@
+using Assets.Scripts.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Компонент кнопки инструмента
+/// </summary>
 public class ToolComponent : MonoBehaviour
 {
     [SerializeField] private int _firstPin;
     [SerializeField] private int _secondPin;
     [SerializeField] private int _thirdPin;
 
-    [SerializeField] private GameStarter _gameStarter;
+    [SerializeField] private GameStateManagerComponent _gameStateManager;
 
     [SerializeField] Text _text;
 
@@ -21,26 +25,29 @@ public class ToolComponent : MonoBehaviour
 
     private void OnEnable()
     {
-        _gameStarter.OnGameStarted += _gameStarter_OnGameStarted;
-        _gameStarter.OnGameFinished += _gameStarter_OnGameFinished;
+        _gameStateManager.OnGameStarted += GameStateManager_OnGameStarted;
+        _gameStateManager.OnGameFinished += GameStateManager_OnGameFinished;
     }
 
     private void OnDisable()
     {
-        _gameStarter.OnGameStarted -= _gameStarter_OnGameStarted;
-        _gameStarter.OnGameFinished -= _gameStarter_OnGameFinished;
+        _gameStateManager.OnGameStarted -= GameStateManager_OnGameStarted;
+        _gameStateManager.OnGameFinished -= GameStateManager_OnGameFinished;
     }
 
-    private void _gameStarter_OnGameStarted()
+    private void GameStateManager_OnGameStarted()
     {
         gameObject.GetComponent<Button>().interactable = true;
     }
 
-    private void _gameStarter_OnGameFinished()
+    private void GameStateManager_OnGameFinished(GameResults gameResults)
     {
         gameObject.GetComponent<Button>().interactable = false;
     }
 
+    /// <summary>
+    /// Применяет значения инструмента к компоненту замку
+    /// </summary>
     public void ApplyTool(LockComponent lockComponent)
     {
         lockComponent.ChangePins(_tool.FirstPinChangeValue, _tool.SecondPinChangeValue, _tool.ThirdPinChangeValue);

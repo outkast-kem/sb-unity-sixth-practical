@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &13404655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -911,8 +911,7 @@ MonoBehaviour:
   _secondPinText: {fileID: 1943522170}
   _thirdPinText: {fileID: 1798111309}
   _timer: {fileID: 1938291648}
-  _winCanvas: {fileID: 1612629547}
-  _gameStarter: {fileID: 806229514}
+  _gameStateManager: {fileID: 0}
   _unlockValue: 5
 --- !u!224 &463485228
 RectTransform:
@@ -1741,7 +1740,7 @@ GameObject:
   - component: {fileID: 806229515}
   - component: {fileID: 806229514}
   m_Layer: 0
-  m_Name: GameStarter
+  m_Name: GameStateManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2320,7 +2319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resultPanel: {fileID: 892952516}
-  _gameStarter: {fileID: 806229514}
+  _gameStateManager: {fileID: 0}
 --- !u!1 &989168138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3878,7 +3877,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playTime: 5
   timerText: {fileID: 1052209016}
-  losePanel: {fileID: 1151538718}
   _gameStarter: {fileID: 806229514}
 --- !u!114 &1943522170 stripped
 MonoBehaviour:

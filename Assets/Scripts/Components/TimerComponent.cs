@@ -1,3 +1,4 @@
+using Assets.Scripts.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +6,8 @@ public class TimerComponent : MonoBehaviour
 { 
     [SerializeField] private int playTime = 60;
     [SerializeField] private Text timerText;
-    [SerializeField] private GameObject losePanel;
 
-    [SerializeField] private GameStarter _gameStarter;
+    [SerializeField] private GameStateManagerComponent _gameStarter;
 
     private bool isTimerEnabled;
     private float timerValue;
@@ -30,8 +30,7 @@ public class TimerComponent : MonoBehaviour
         if (roundedTime <= 0)
         {
             isTimerEnabled = false;
-            _gameStarter.FinishGame(false);
-            //losePanel.SetActive(true);
+            _gameStarter.FinishGame(GameResults.Lose);
             return;
         }
     }
